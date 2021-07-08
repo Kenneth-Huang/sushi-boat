@@ -29,7 +29,12 @@ const NavbarStyled = styled.div`
 export const Navbar = () => {
 	return (
 		<NavbarStyled>
-			<Logo>Sushi Boat🍣</Logo>
+			<Logo>
+				Sushi Boat
+				<span role='img' arial-label='sushi'>
+					🍣
+				</span>
+			</Logo>
 		</NavbarStyled>
 	);
 };

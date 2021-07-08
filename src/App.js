@@ -1,12 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
 import HomePage from 'pages/HomePage';
-
-const GlobalStyles = createGlobalStyle`
-body{
-	margin:0;
-	min-height: 100vh;	
-}
-`;
+import { GlobalStyles } from 'style/GlobalStyles';
 
 function App() {
 	return (
