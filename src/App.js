@@ -1,11 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
+import HomePage from 'pages/HomePage';
 
 const GlobalStyles = createGlobalStyle`
 body{
-  font-family: 'Roboto', sans-serif;
-}
-h1, h2, h3, h4, h5, h6{
-  font-family: 'Ubuntu', sans-serif;
+	margin:0;
+	min-height: 100vh;	
 }
 `;
 
@@ -13,8 +12,9 @@ function App() {
 	return (
 		<>
 			<GlobalStyles />
-			<h1>Welcome</h1>
-			<div>Hello world</div>
+			<HomePage />
+			{/* <h1>Welcome</h1>
+			<div>Hello world</div> */}
 		</>
 	);
 }
