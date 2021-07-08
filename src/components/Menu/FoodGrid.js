@@ -16,10 +16,17 @@ export const FoodCard = styled(Title)`
 	background-size: cover;
 	filter: contrast(0.85);
 	border-radius: 7px;
-	box-shadow: 0px 0px 6px 0px #796161;
+	box-shadow: 0px 0px 2px 0px #796161;
+	margin-top: 5px;
+	transition-property: box-shadow filter margin-top;
+	transition-duration: 0.1s;
 	&:hover {
 		cursor: pointer;
 		opacity: 0.8;
+		filter: contrast(1);
+		margin-top: 0;
+		margin-bottom: 5px;
+		box-shadow: 0px 3px 6px 0px #796161;
 	}
 `;
 
