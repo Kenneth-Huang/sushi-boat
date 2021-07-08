@@ -3,12 +3,18 @@ import React from 'react';
 import { Navbar } from './Navbar';
 
 const Content = styled.main`
-	max-width: 800px;
+	max-width: 1000px;
 	margin: 80px auto 0 auto;
-	padding: 0 16px;
+	/* padding: 0 16px; */
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
-
+	/* background-image: url('/img/banner_1.jpg');
+	filter: contrast(50%);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed; */
+	min-height: 90vh;
 	h1,
 	h2,
 	h3,
