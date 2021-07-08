@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import * as Color from 'style/Color';
 
 export const Banner = styled.div`
 	height: 200px;
