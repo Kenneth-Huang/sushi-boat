@@ -6,8 +6,6 @@ function App() {
 		<>
 			<GlobalStyles />
 			<HomePage />
-			{/* <h1>Welcome</h1>
-			<div>Hello world</div> */}
 		</>
 	);
 }
