@@ -32,6 +32,6 @@ export const FoodCard = styled.div`
 
 export const FoodTitleLabel = styled(Title)`
 	position: absolute;
-	z-index: -1;
+	padding: 5px;
 	background: rgba(255, 255, 255, 0.7);
 `;
