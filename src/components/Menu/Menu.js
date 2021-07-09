@@ -8,16 +8,20 @@ const MenuStyled = styled.div`
 	min-height: 50vh;
 `;
 
-export const Menu = () => {
+export const Menu = ({ setSelectedFood }) => {
 	return (
 		<MenuStyled>
-			{Object.entries(foodDataObject).map(([key, value], index) => (
-				<div key={key + index}>
-					<h2>{key}</h2>
+			{Object.entries(foodDataObject).map(([section, foods], index) => (
+				<div key={section + index}>
+					<h2>{section}</h2>
 					<FoodGrid>
-						{value.map((item, index) => (
-							<FoodCard img={item.img} key={item.name + index}>
-								<FoodTitleLabel>{item.name}</FoodTitleLabel>
+						{foods.map((food, index) => (
+							<FoodCard
+								img={food.img}
+								key={food.name + index}
+								onClick={() => setSelectedFood(food)}
+							>
+								<FoodTitleLabel>{food.name}</FoodTitleLabel>
 							</FoodCard>
 						))}
 					</FoodGrid>

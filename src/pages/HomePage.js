@@ -1,12 +1,17 @@
-import React from 'react';
-import { PageLayout, Banner, Menu } from 'components/';
+import React, { useState } from 'react';
+import { PageLayout, Banner, Menu, FoodDialog } from 'components/';
 
 const HomePage = () => {
+	const [selectedFood, setSelectedFood] = useState();
 	return (
 		<PageLayout>
 			<Banner />
+			<FoodDialog
+				selectedFood={selectedFood}
+				setSelectedFood={setSelectedFood}
+			/>
 			<h1>Menu</h1>
-			<Menu />
+			<Menu setSelectedFood={setSelectedFood} />
 		</PageLayout>
 	);
 };
