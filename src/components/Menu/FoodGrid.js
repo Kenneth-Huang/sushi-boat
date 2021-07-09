@@ -7,7 +7,7 @@ export const FoodGrid = styled.div`
 	gap: 20px;
 `;
 
-export const FoodCard = styled(Title)`
+export const FoodCard = styled.div`
 	height: 100px;
 	padding: 10px;
 	font-size: 1.1.rem;
@@ -30,7 +30,7 @@ export const FoodCard = styled(Title)`
 	}
 `;
 
-export const FoodTitleLabel = styled.div`
+export const FoodTitleLabel = styled(Title)`
 	position: absolute;
 	z-index: -1;
 	background: rgba(255, 255, 255, 0.7);
