@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { PageLayout, Banner, Menu, FoodDialog } from 'components/';
+import React from 'react';
+import { PageLayout, Banner, Menu, FoodDialog, Order } from 'components/';
+import { useSelectedFood, useOrders, useTitle } from 'hooks/';
 
 const HomePage = () => {
-	const [selectedFood, setSelectedFood] = useState();
+	const selectedFoodHook = useSelectedFood();
+	const ordersHook = useOrders();
+	useTitle({ ...selectedFoodHook, ...ordersHook });
 	return (
 		<PageLayout>
 			<Banner />
-			<FoodDialog
-				selectedFood={selectedFood}
-				setSelectedFood={setSelectedFood}
-			/>
+			<FoodDialog {...selectedFoodHook} {...ordersHook} />
 			<h1>Menu</h1>
-			<Menu setSelectedFood={setSelectedFood} />
+			<Menu {...selectedFoodHook} />
+			<Order {...ordersHook} />
 		</PageLayout>
 	);
 };
