@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FoodTitleLabel } from 'components';
+import { FoodTitleLabel, Button as ConfirmButton } from 'components';
+import formatPrice from 'util/formatPrice';
 
 const Dialog = styled.div`
 	position: fixed;
-	top: 250px;
+	top: 150px;
 	left: calc(50% - 250px);
 	background-color: white;
 	border: 1 solid grey;
 	border-radius: 10px;
 	z-index: 6;
 	width: 500px;
-	height: 800px;
-	max-height: calc(80% - 200px);
+	/* height: 500px; */
+	max-height: calc(90% - 200px);
 `;
 
 const DialogShadow = styled.div`
@@ -27,7 +28,7 @@ const DialogShadow = styled.div`
 
 const DialogBanner = styled.div`
 	min-height: 200px;
-	margin-bottom: 200px;
+	margin-bottom: 10px;
 	background-image: url(${({ img }) => img});
 	background-position: center;
 	background-size: cover;
@@ -35,10 +36,13 @@ const DialogBanner = styled.div`
 	border-top-right-radius: 10px;
 `;
 
-const DialogFoodName = styled(FoodTitleLabel)`
-	top: 30%;
+const DialogFoodTag = styled(FoodTitleLabel)`
+	top: 20%;
 	padding: 10px 30px;
 	font-size: 2rem;
+	.food-price {
+		font-size: 1.5rem;
+	}
 `;
 
 const CrossBtn = styled.div`
@@ -63,17 +67,52 @@ const CrossBtn = styled.div`
 	}
 `;
 
-export const FoodDialog = ({ selectedFood, setSelectedFood }) => {
+export const DialogContent = styled.div`
+	/* border: 2px solid blue; */
+	min-height: 100px;
+	overflow: auto;
+`;
+
+export const DialogFooter = styled.div`
+	border: 2px solid rgb(255 255 255 / 70%);
+	height: 60px;
+	box-shadow: 0 -2px 10px 0 grey;
+	display: flex;
+	/* place-items: center; */
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const FoodDialog = ({
+	selectedFood,
+	setSelectedFood,
+	orders,
+	setOrders,
+}) => {
 	const closeDialog = () => {
 		setSelectedFood(null);
+	};
+
+	const addToCart = (food) => {
+		setOrders((o) => [...o, food]);
+		closeDialog();
 	};
 	return selectedFood ? (
 		<>
 			<Dialog>
 				<DialogBanner img={selectedFood.img}>
 					<CrossBtn onClick={closeDialog} />
-					<DialogFoodName>{selectedFood.name}</DialogFoodName>
+					<DialogFoodTag>
+						<div>{selectedFood.name}</div>
+						<div className='food-price'>{formatPrice(selectedFood.price)}</div>
+					</DialogFoodTag>
 				</DialogBanner>
+				<DialogContent></DialogContent>
+				<DialogFooter>
+					<ConfirmButton onClick={() => addToCart(selectedFood)}>
+						Add to Order {formatPrice(selectedFood.price)}
+					</ConfirmButton>
+				</DialogFooter>
 			</Dialog>
 			<DialogShadow onClick={closeDialog} />
 		</>
