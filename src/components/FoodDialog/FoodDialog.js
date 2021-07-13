@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FoodTitleLabel, Button as ConfirmButton } from 'components';
 import formatPrice from 'util/formatPrice';
+import { QuantityInput } from './QuantityInput';
+import { useQuantity } from 'hooks';
 
 const Dialog = styled.div`
 	position: fixed;
@@ -68,9 +70,9 @@ const CrossBtn = styled.div`
 `;
 
 export const DialogContent = styled.div`
-	/* border: 2px solid blue; */
 	min-height: 100px;
 	overflow: auto;
+	padding: 0 40px;
 `;
 
 export const DialogFooter = styled.div`
@@ -93,10 +95,19 @@ export const FoodDialog = ({
 		setSelectedFood(null);
 	};
 
-	const addToCart = (food) => {
-		setOrders((o) => [...o, food]);
+	const quantityHook = useQuantity(selectedFood && selectedFood.quantity);
+
+	const order = {
+		...selectedFood,
+		quantity: quantityHook.value,
+	};
+
+	const addToCart = (order) => {
+		setOrders((o) => [...o, order]);
+		quantityHook.setValue(1);
 		closeDialog();
 	};
+
 	return selectedFood ? (
 		<>
 			<Dialog>
@@ -107,10 +118,12 @@ export const FoodDialog = ({
 						<div className='food-price'>{formatPrice(selectedFood.price)}</div>
 					</DialogFoodTag>
 				</DialogBanner>
-				<DialogContent></DialogContent>
+				<DialogContent>
+					<QuantityInput quantityHook={quantityHook} />
+				</DialogContent>
 				<DialogFooter>
-					<ConfirmButton onClick={() => addToCart(selectedFood)}>
-						Add to Order {formatPrice(selectedFood.price)}
+					<ConfirmButton onClick={() => addToCart(order)}>
+						Add to Order {formatPrice(order.price * order.quantity)}
 					</ConfirmButton>
 				</DialogFooter>
 			</Dialog>
