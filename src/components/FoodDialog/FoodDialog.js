@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FoodTitleLabel, Button as ConfirmButton } from 'components';
-import formatPrice from 'util/formatPrice';
+import { formatPrice, productTotalPrice } from 'utilTool';
+
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from 'hooks';
 
@@ -123,7 +124,7 @@ export const FoodDialog = ({
 				</DialogContent>
 				<DialogFooter>
 					<ConfirmButton onClick={() => addToCart(order)}>
-						Add to Order {formatPrice(order.price * order.quantity)}
+						Add to Order {formatPrice(productTotalPrice(order))}
 					</ConfirmButton>
 				</DialogFooter>
 			</Dialog>

@@ -6,6 +6,7 @@ const HomePage = () => {
 	const selectedFoodHook = useSelectedFood();
 	const ordersHook = useOrders();
 	useTitle({ ...selectedFoodHook, ...ordersHook });
+
 	return (
 		<PageLayout>
 			<Banner />
