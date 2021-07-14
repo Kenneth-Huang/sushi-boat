@@ -33,8 +33,11 @@ const OrderSection = styled.div`
 const OrderRow = styled.div`
 	padding: 10px 0;
 	display: grid;
-	grid-template-columns: 55% 10% 10% 25%;
+	grid-template-columns: 55% 10% 25% 10%;
 	justify-content: space-between;
+`;
+const OrderCol = styled.div`
+	align-self: center;
 `;
 
 const OrderSum = styled.div`
@@ -63,7 +66,25 @@ const OrderSum = styled.div`
 	}
 `;
 
-export const Order = ({ orders, setOrders }) => {
+const AddtionalInfo = styled.div`
+	color: grey;
+	font-size: 0.6rem;
+`;
+
+const DeleteButton = styled.div`
+	background-color: white;
+	border: none;
+	padding: 3px;
+	cursor: pointer;
+`;
+
+const EditButton = styled.div`
+	background-color: white;
+	border: none;
+	cursor: pointer;
+`;
+
+export const Order = ({ orders, setOrders, setSelectedFood }) => {
 	const emptyOrderInfo = 'Your order list is empty';
 
 	const orderTotal = orders.reduce(
@@ -72,6 +93,12 @@ export const Order = ({ orders, setOrders }) => {
 	);
 
 	const orderTax = orderTotal * taxRate;
+
+	const deleteOrder = (index) => {
+		let newOrders = [...orders];
+		newOrders.splice(index, 1);
+		setOrders(newOrders);
+	};
 
 	const showOrders = (orders) => {
 		const sumText =
@@ -83,12 +110,27 @@ export const Order = ({ orders, setOrders }) => {
 				<OrderSection>{sumText}</OrderSection>
 				<OrderSection>
 					{orders.map((order, index) => (
-						<OrderRow key={order.name + index}>
-							<div>{order.name}</div>
-							<div>* {order.quantity}</div>
-							<div></div>
-							<div>{formatPrice(productTotalPrice(order))}</div>
-						</OrderRow>
+						<React.Fragment key={order.name + index}>
+							<OrderRow>
+								<OrderCol>
+									<EditButton
+										onClick={() => setSelectedFood({ ...order, index })}
+									>
+										{order.name}
+									</EditButton>
+								</OrderCol>
+								<OrderCol>
+									<EditButton>* {order.quantity}</EditButton>
+								</OrderCol>
+								<OrderCol>{formatPrice(productTotalPrice(order))}</OrderCol>
+								<div>
+									<DeleteButton onClick={() => deleteOrder(index)}>
+										<i class='fas fa-trash-alt'></i>
+									</DeleteButton>
+								</div>
+							</OrderRow>
+							<AddtionalInfo>{order.drinkChoice}</AddtionalInfo>
+						</React.Fragment>
 					))}
 				</OrderSection>
 				<OrderSum>

@@ -6,14 +6,13 @@ const HomePage = () => {
 	const selectedFoodHook = useSelectedFood();
 	const ordersHook = useOrders();
 	useTitle({ ...selectedFoodHook, ...ordersHook });
-
 	return (
 		<PageLayout>
 			<Banner />
 			<FoodDialog {...selectedFoodHook} {...ordersHook} />
 			<h1>Menu</h1>
-			<Menu {...selectedFoodHook} />
-			<Order {...ordersHook} />
+			<Menu {...selectedFoodHook} orders={ordersHook.orders} />
+			<Order {...ordersHook} {...selectedFoodHook} />
 		</PageLayout>
 	);
 };

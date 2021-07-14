@@ -7,3 +7,4 @@ export * from './FoodDialog/FoodDialog';
 export * from './FoodDialog/QuantityInput';
 export * from './Order';
 export * from './CommonComponent/Buttons';
+export * from './FoodDialog/DrinkChoice';

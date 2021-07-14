@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FoodTitleLabel, Button as ConfirmButton } from 'components';
 import { formatPrice, productTotalPrice } from 'utilTool';
 
 import { QuantityInput } from './QuantityInput';
-import { useQuantity } from 'hooks';
+import { DrinkChoice } from './DrinkChoice';
+import { useQuantity, useDrinkChoice } from 'hooks';
 
 const Dialog = styled.div`
 	position: fixed;
@@ -94,18 +95,31 @@ export const FoodDialog = ({
 }) => {
 	const closeDialog = () => {
 		setSelectedFood(null);
+		quantityHook.setValue(1);
+		drinkChoiceHook.setValue('');
 	};
 
 	const quantityHook = useQuantity(selectedFood && selectedFood.quantity);
+	const drinkChoiceHook = useDrinkChoice();
 
 	const order = {
 		...selectedFood,
 		quantity: quantityHook.value,
+		drinkChoice: drinkChoiceHook.value,
 	};
 
+	useEffect(() => {
+		if (selectedFood && selectedFood.quantity) {
+			quantityHook.setValue(selectedFood.quantity);
+		}
+	}, [selectedFood]);
+
 	const addToCart = (order) => {
-		setOrders((o) => [...o, order]);
-		quantityHook.setValue(1);
+		let newOrders = [...orders];
+		if (selectedFood && selectedFood.index >= 0) {
+			newOrders.splice(selectedFood.index, 1, order);
+		} else newOrders = [...orders, order];
+		setOrders(newOrders);
 		closeDialog();
 	};
 
@@ -121,6 +135,9 @@ export const FoodDialog = ({
 				</DialogBanner>
 				<DialogContent>
 					<QuantityInput quantityHook={quantityHook} />
+					{selectedFood.section === 'Drink' ? (
+						<DrinkChoice choices={selectedFood.choices} {...drinkChoiceHook} />
+					) : null}
 				</DialogContent>
 				<DialogFooter>
 					<ConfirmButton onClick={() => addToCart(order)}>

@@ -41,6 +41,13 @@ const foodData = [
 		section: 'small roll',
 		price: 2.6,
 	},
+	{
+		name: 'Soda',
+		img: '/img/menu/soda.jpg',
+		section: 'Drink',
+		price: 2.6,
+		choices: ['Coke', 'Sprite', 'Lemon tea'],
+	},
 ];
 
 export const foodDataObject = foodData.reduce((res, food) => {
